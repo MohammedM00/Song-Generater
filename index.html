@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Song Generator</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .container {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .mood-selector {
+            margin: 20px;
+        }
+        
+        #generate-poem {
+            margin: 10px;
+        }
+        
+        #poem-container {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Song Generator</h1>
+        <div class="mood-selector">
+            <label for="mood">Select Mood:</label>
+            <select id="mood">
+                <option value="upbeat">Upbeat</option>
+                <option value="melancholy">Melancholy</option>
+            </select>
+        </div>
+        <button id="generate-poem">Generate Poem</button>
+        <div id="poem-container"></div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Function to generate a random poem based on the mood
+            function generatePoem(mood) {
+                var poems = {
+                    upbeat: ["Joyful lines of poetry...", "Dancing through the fields, a song of glee...", "Bright sunbeams and laughter fill the air..."],
+                    melancholy: ["Tears fall like raindrops on a lonely night...", "Sorrow's embrace, the world feels gray...", "In the quiet of the night, a melancholy tune..."]
+                };
+
+                var verses = {
+                    freeform: ["A verse of your own words...", "Express your thoughts freely...", "Let your heart speak in this verse..."],
+                    standard: ["This is a standard verse.", "Here's a predefined verse for you.", "In this verse, something special awaits."]
+                };
+
+                var randomPoem = poems[mood][Math.floor(Math.random() * poems[mood].length)];
+                var randomVerseType = Math.random() < 0.5 ? 'freeform' : 'standard';
+                var randomVerse = verses[randomVerseType][Math.floor(Math.random() * verses[randomVerseType].length)];
+
+                // Insert the random verse at a specific location in the poem
+                var position = Math.floor(Math.random() * (randomPoem.length + 1));
+                var poemWithVerse = randomPoem.slice(0, position) + randomVerse + randomPoem.slice(position);
+
+                return poemWithVerse;
+            }
+
+            // Handle the button click event
+            $("#generate-poem").click(function() {
+                var selectedMood = $("#mood").val();
+                var generatedPoem = generatePoem(selectedMood);
+                $("#poem-container").text(generatedPoem);
+            });
+        });
+    </script>
+</body>
+</html>

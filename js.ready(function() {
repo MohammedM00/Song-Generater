@@ -1,0 +1,37 @@
+$(document).ready(function() {
+    // Function to generate a random poem based on the mood
+    function generatePoem(mood) {
+        var poems = {
+            upbeat: ["Joyful lines of poetry...", "Dancing through the fields, a song of glee...", "Bright sunbeams and laughter fill the air..."],
+            melancholy: ["Tears fall like raindrops on a lonely night...", "Sorrow's embrace, the world feels gray...", "In the quiet of the night, a melancholy tune..."]
+        };
+
+        var randomPoem = poems[mood][Math.floor(Math.random() * poems[mood].length)];
+        return randomPoem;
+    }
+
+    // Handle the button click event
+    $("#generate-poem").click(function() {
+        var selectedMood = $("#mood").val();
+        var generatedPoem = generatePoem(selectedMood);
+        $("#poem-container").text(generatedPoem);
+        // Handle the button click event
+            $("#generate-poem").click(function() {
+                var selectedMood = $("#mood").val();
+                var generatedPoem = generatePoem(selectedMood);
+
+                // Insert the generated poem into the poem container using .html
+                $("#poem-container").html(generatedPoem);
+
+                // Insert a freeform verse after the poem using .append
+                $("<p>A freeform verse of your own words...</p>").appendTo(".verse-container");
+
+                // Insert a standard verse before the poem using .before
+                $("<p>This is a standard verse inserted before the poem.</p>").before("#poem-container");
+
+                // Insert another verse after the poem using .after
+                $("<p>Another verse after the poem.</p>").after("#poem-container");
+            });
+        });
+    });
+});
